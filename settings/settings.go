@@ -10,7 +10,8 @@ type Config struct {
 	RemoveBackgrounds int    `json:"RemoveBackgrounds"`
 }
 
-func LoadSettings(configFilePath string) (Config, error) {
+func LoadSettings() (Config, error) {
+	configFilePath := "settings.json"
 	var config Config
 
 	// Open Config File

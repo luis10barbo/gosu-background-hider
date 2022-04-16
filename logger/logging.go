@@ -10,6 +10,7 @@ var (
 	warningLogger *log.Logger
 	infoLogger    *log.Logger
 	errorLogger   *log.Logger
+	fatalLogger	  *log.Logger
 )
 
 func init() {
@@ -21,6 +22,7 @@ func init() {
 	infoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
 	warningLogger = log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
 	errorLogger = log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	fatalLogger = log.New(file, "FATAL: ", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func InfoLog(message ...interface{}) {
@@ -36,4 +38,9 @@ func WarnLog(message ...interface{}) {
 func ErrorLog(message ...interface{}) {
 	fmt.Println(message...)
 	errorLogger.Println(message...)
+}
+
+func FatalLog(message ...interface{}) {
+	fmt.Println(message...)
+	fatalLogger.Fatal(message...)
 }
