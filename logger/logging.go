@@ -4,7 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/gen2brain/beeep"
+	"github.com/luis10barbo/OsuBackgroundRemover/settings"
 )
+
+var Config settings.ConfigStruct
 
 var (
 	warningLogger *log.Logger
@@ -42,5 +47,14 @@ func ErrorLog(message ...interface{}) {
 
 func FatalLog(message ...interface{}) {
 	fmt.Println(message...)
+	DesktopNotification(fmt.Sprintf("ERROR: %s", fmt.Sprint(message...)))
 	fatalLogger.Fatal(message...)
+
+}
+
+func DesktopNotification(message string) {
+	fmt.Println(settings.Config)
+	if settings.Config.DesktopNotifications == 1 {
+		beeep.Notify("Osu Background Remover Tool" , message, "")
+	}
 }

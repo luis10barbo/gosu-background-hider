@@ -5,15 +5,17 @@ import (
 	"os"
 )
 
-type Config struct {
+var Config ConfigStruct
+type ConfigStruct struct {
 	OsuPath           string `json:"OsuPath"`
 	RemoveBackgrounds int    `json:"RemoveBackgrounds"`
+	DesktopNotifications int `json:"DesktopNotifications"`
 }
 
-func LoadSettings() (Config, error) {
+func LoadSettings() (ConfigStruct, error) {
+	
 	configFilePath := "settings.json"
-	var config Config
-
+	
 	// Open Config File
 	configFile, err := os.Open(configFilePath)
 	// if os.IsNotExist(err) {
@@ -23,13 +25,13 @@ func LoadSettings() (Config, error) {
 	// }
 
 	if err != nil {
-		return config, err
+		return Config, err
 	}
 	defer configFile.Close()
 
 	jsonParser := json.NewDecoder(configFile)
-	err = jsonParser.Decode(&config)
+	err = jsonParser.Decode(&Config)
 
-	return config, err
+	return Config, err
 }
 

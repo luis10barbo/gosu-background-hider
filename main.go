@@ -11,7 +11,6 @@ import (
 	"github.com/luis10barbo/OsuBackgroundRemover/logger"
 	"github.com/luis10barbo/OsuBackgroundRemover/settings"
 
-	"github.com/gen2brain/beeep"
 	"github.com/superhawk610/bar"
 )
 
@@ -28,7 +27,7 @@ func main() {
 	isOsuFolder := false
 	osuPath , err := filehandler.ListDirectory(config.OsuPath)
 	if err != nil {
-		logger.FatalLog(err)
+		logger.FatalLog(fmt.Sprintf("OsuPath \"%s\" is not a directory! Update your settings.json file...", config.OsuPath))
 	}
 	for _, file := range osuPath {
 			if file == "osu!.exe" {
@@ -95,7 +94,7 @@ func main() {
 	}
 	loopProgress.Done()
 
-	beeep.Notify("Background Removal has Finished", fmt.Sprintf("The program has modified %d files!", totalModifiedFiles), "")
+	logger.DesktopNotification(fmt.Sprintf("The process has been completed, %d files were modified!", totalModifiedFiles))
 	fmt.Println("Ending App...")
 }
 
